@@ -1,0 +1,13 @@
+{
+    "N": ["UP", "N/B", "NORTH", "N?B", "NB", "N/", "N/N", "N\\B", "NN", "U"],
+    "S": ["S/B", "DOWN", "SOUTH", "S\\B", "BWAYS", "SB", "S?B", "SS", "S/S"],
+    "E": ["B/E", "E/B", "EB", "BE", "EAST", "E\\B"],
+    "W": ["WB", "W?B", "W\\B", "WEST", "W/B", "WW"],
+    "BW": ["B/B", "BOTHWAYS", "B/W", "E/W", "S/N", "N/S", "B/WAYS", "W/E", 
+        "N&S", "ALL", "B", "WE", "B\\W", "B?W", "BOTHWAY", "EW", "BOTH", "B/WS", "NS", "SN", "BWS", "SBNB",
+        "SOTH", "EWW", "SOTHWWAY", "SOTHWWAYS", "N\\S", "N?S", "DN"],
+    "NE": ["NE", "N/E", "E/N"],
+    "SW": ["SW", "S/W"],
+    "SE": ["S/E", "SE"],
+    "NW": ["N/W", "NW"]
+}
