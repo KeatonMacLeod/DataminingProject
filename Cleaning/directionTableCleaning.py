@@ -65,7 +65,7 @@ def cleanUpdateCase(dbConn):
         print("They are {s}".format(s = countsDirection[key]))
     print("There were a total of {dd} records".format(dd=df.shape[0]))
 
-    # df.to_sql('direction_caps', dbConn)
+    df.to_sql('direction_caps', dbConn)
     return
 
 def connect():
