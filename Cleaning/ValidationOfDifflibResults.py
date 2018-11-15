@@ -35,7 +35,7 @@ def remove_stop_words(s):
 def compare_original_location_with_difflib_stop():
     engine = create_engine('mysql://root:casperto360flip@localhost/data_mining_bus_delays?charset=utf8')
 
-    engine_result = engine.execute("SELECT Id, Location, ClosestStopName FROM location")
+    engine_result = engine.execute("SELECT Id, Location, MostSimilarStopName FROM location")
     result = engine_result.fetchall()
 
     num_processed = 0

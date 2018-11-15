@@ -68,7 +68,7 @@ def find_most_similar_stops():
                     closest_stop_code = stop_codes[closest_modified_stop_name_index]
                     closest_stop_name = original_stop_names[closest_modified_stop_name_index]
 
-                    engine.execute("UPDATE location SET `ClosestStopName` = \"" + closest_stop_name.replace("'", "\\'") + "\", `ClosestStopCode` = \"" + closest_stop_code + "\" WHERE `id` = " + str(location_ids[i]))
+                    engine.execute("UPDATE location SET `MostSimilarStopName` = \"" + closest_stop_name.replace("'", "\\'") + "\", `MostSimilarStopCode` = \"" + closest_stop_code + "\" WHERE `id` = " + str(location_ids[i]))
                     num_processed += 1
 
                     # print("Original: {} | Closest: {}".format(location, difflib.get_close_matches(location, stop_names, 1)))
