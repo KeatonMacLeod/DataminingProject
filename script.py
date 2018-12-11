@@ -9,14 +9,6 @@ import timeit
 import matplotlib.pyplot as plt
 import numpy as np
 
-def prettyPrintDict(dictonary):
-    count = 0
-    for a in dictonary:
-        if len(a) == 3:
-            count +=1
-            print(str(a) +':' + str(dictonary[a]))
-    print(count)
-
 #assuming the first element is the time delta object
 def processTimeDeltaObjs(array):
     processedArray = []
@@ -36,7 +28,6 @@ def plotChart(xAxis, yAxis):
     print(xAxis)
     print(yAxis)
     plt.plot(xAxis, yAxis)
-    # plt.plot([1,27,28,29,5],[3,10,23,16,3])
     plt.axis([1, 30, 0, 400])
     plt.title('About as simple as it gets, folks')
     plt.grid(True)
@@ -73,23 +64,28 @@ sql_query = "SELECT T.Time, T.report_date, T.Incident FROM delays_merged as T WH
 db_connection = "mysql+pymysql://root@localhost/bus_delays"
 
 conn = create_engine(db_connection)
-start = timeit.default_timer()
 df = pd.read_sql(sql_query, conn)
-print('Printing:.....')
-stop = timeit.default_timer()
-print('Database Reading Time: ', stop - start) 
-
-start = timeit.default_timer()
-# Removing all the elemnts of type None
 df = df.replace(to_replace='None', value="").dropna()
-stop = timeit.default_timer()
-print('Replace  Time: ', stop - start)
-
 direction = df.values
 direction = processTimeDeltaObjs(direction)
-
-start = timeit.default_timer()
 patterns = pyfpgrowth.find_frequent_patterns(direction, 2)
-stop = timeit.default_timer()
-print('Pattern Finding  Time: ', stop - start)
 processByMonth(patterns)
+
+
+
+#Timer functionalities
+
+# start = timeit.default_timer()
+# print('Printing:.....')
+# stop = timeit.default_timer()
+# print('Database Reading Time: ', stop - start) 
+
+# start = timeit.default_timer()
+# Removing all the elemnts of type None
+# stop = timeit.default_timer()
+# print('Replace  Time: ', stop - start)
+
+
+# start = timeit.default_timer()
+# stop = timeit.default_timer()
+# print('Pattern Finding  Time: ', stop - start)
