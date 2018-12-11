@@ -2,3 +2,4 @@ main.py
 test*
 .vscode/
 .DS_Store
+Temp_Folder/*
