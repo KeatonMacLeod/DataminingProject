@@ -9,7 +9,7 @@ def main():
     toronto_bus_data_years = ["2014", "2015", "2016", "2017", "2018"]
 
     previous_years_frequent_patterns = {}
-    frequent_pattern_min_sup = 50
+    frequent_pattern_min_sup = 25
 
     # Gather each year's frequent bus delay patterns and store them in "all_years_frequent_patterns"
     # for analysis on interesting patterns
@@ -29,29 +29,41 @@ def main():
 
     # Create the "future year's" patterns and remove the "future year's" patterns
     # from the previous_year_list_frequent_pattern
-    future_year = "2017"
-    future_year_frequent_patterns = {}
-    future_year_frequent_patterns[future_year] = previous_years_frequent_patterns[future_year]
+    future_year = "2018"
+    future_year_frequent_patterns = {future_year: previous_years_frequent_patterns[future_year]}
     del previous_years_frequent_patterns[future_year]
 
     # Find out the interesting rules between previous data and "future" data
     find_similarities_and_differences(previous_years_frequent_patterns, future_year_frequent_patterns)
 
 
+# Find all the similar patterns with a "frequent_pattern_minimum_length" of N where previous year's patterns
+# are indicative of patterns in a future year
+# TODO: This function (or another function) should also look for interesting outlier patterns in ANY year
 def find_similarities_and_differences(previous_years_frequent_patterns, future_year_frequent_patterns):
 
-    matching_patterns = []
-    outlier_patterns = {}
+    frequent_pattern_min_length = 5
 
     for fut_year, fut_frequent_patterns in future_year_frequent_patterns.items():
         for fut_pattern, fut_count in fut_frequent_patterns.items():
+
+            # Patterns predicting future patterns
+            predicted_patterns = []
+            predicted_patterns_count = []
+            predicted_patterns_year = []
+
             for prev_year, prev_frequent_patterns in previous_years_frequent_patterns.items():
                 for prev_pattern, prev_count in prev_frequent_patterns.items():
-                    if sorted(fut_pattern) == sorted(prev_pattern):
-                        matching_patterns.append(fut_pattern)
+                    if sorted(fut_pattern) == sorted(prev_pattern) and len(fut_pattern) >= frequent_pattern_min_length:
+                        predicted_patterns.append(prev_pattern)
+                        predicted_patterns_count.append(prev_count)
+                        predicted_patterns_year.append(prev_year)
 
-    for match in matching_patterns:
-        print(match)
+            if predicted_patterns:
+                print("Future Year {} - {}:{} predicted by:".format(fut_year, fut_pattern, fut_count))
+                for i in range(len(predicted_patterns)):
+                    print("{}:{} - {}".format(predicted_patterns[i], predicted_patterns_count[i], predicted_patterns_year[i]))
+                print("-" * 50)
 
 
 # Finds the frequent patterns greater than or equal to the user's min_sup
