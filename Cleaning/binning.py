@@ -34,4 +34,4 @@ df = df.drop(columns=['min_delay'])
 # clean up June/Jun
 df = df.replace(to_replace=r'June', value='Jun', regex=True)
 
-df.to_sql('delays_binned', conn)
+df.to_sql('delays_binned', db_connection)
