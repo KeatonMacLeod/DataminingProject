@@ -56,14 +56,15 @@ def merge_tables(conn):
     print("Directions merged\n" + str(delays.head()))
 
     
-    location = pd.read_sql('SELECT MostSimilarStopName, delay_id from Location WHERE similarity > 84', conn)
+    location = pd.read_sql('SELECT MostSimilarStopName, delay_id from Location', conn)
+    # location = pd.read_sql('SELECT MostSimilarStopName, delay_id from Location WHERE similarity > 84', conn)
     print(time.time() - startTime); startTime = time.time()
     delays = delays.merge(location, on='delay_id', how='inner')
     print(time.time() - startTime); startTime = time.time()
     print("Locations merged\n" + str(delays.head()))
     print("Done merging all")
 
-    delays.to_sql('delays_merged', conn)
+    delays.to_sql('delays_with_all_locations', conn)
     return
 
 
