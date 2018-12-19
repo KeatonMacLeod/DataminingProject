@@ -24,29 +24,57 @@ def processTimeDeltaObjs(array):
         processedArray.append(subArray)
     return processedArray
 
-def plotChart(xAxis, yAxis):
-    print(xAxis)
-    print(yAxis)
-    plt.plot(xAxis, yAxis)
-    plt.axis([1, 30, 0, 400])
+def plotChart(xAxis, yAxis, axis):
+    color = 'red'
+    for i in range(0, len(xAxis)):
+        plt.plot(xAxis[i], yAxis[i], color)
+        color = 'green'
+
+    plt.axis(axis)
     plt.title('About as simple as it gets, folks')
     plt.grid(True)
     # plt.savefig("JanTotal.png")
     plt.show()
+
+def processByYear(dictionary):
+    xAxis = list(range(1, 13))
+    yAxis = [0]*12
+    month = ''
+    for a in dictionary:
+        if len(a) == 2:
+            # print(a)
+            try:
+                if '-' in a[0]:
+                    # print(day)
+                    month = int(a[0].split('-')[1])
+                else: 
+                    # print(day)
+                    month = int(a[1].split('-')[1])
+                delayValue = int(dictionary[a])
+                if yAxis[month-1]>0:
+                    yAxis[month-1] = yAxis[month-1]+delayValue
+                else:
+                    yAxis[month-1] = delayValue
+            except:
+                print('Skipping data point due to parsing error')
+    # print("xAxis:"+str(xAxis))
+    # print("yAxis:"+str(yAxis))
+    
+    return xAxis, yAxis
 
 def processByMonth(dictionary):
     xAxis = list(range(1, 32))
     yAxis = [0]*31
     day = ''
     for a in dictionary:
-        if len(a) == 3:
-            print(a)
+        if len(a) == 2:
+            # print(a)
             try:
                 if '-' in a[0]:
-                    print(day)
+                    # print(day)
                     day = int(a[0].split('-')[2].split()[0])
                 else: 
-                    print(day)
+                    # print(day)
                     day = int(a[1].split('-')[2].split()[0])
                 delayValue = int(dictionary[a])
                 if yAxis[day-1]>0:
@@ -55,22 +83,105 @@ def processByMonth(dictionary):
                     yAxis[day-1] = delayValue
             except:
                 print('Skipping data point due to parsing error')
+    # print("xAxis:"+str(xAxis))
+    # print("yAxis:"+str(yAxis))
+    
+    return xAxis, yAxis
+
+def processByHour(dictionary):
+    xAxis = list(range(0, 24))
+    yAxis = [0]*24
+    hour = ''
+    for a in dictionary:
+        # print(a)
+        if len(a) == 3:
+            try:
+                if ' ' not in a[0]:
+                    hour = int(a[0].split(':')[0])
+                else: 
+                    # print(day)
+                    hour = int(a[1].split(':')[0])
+                delayValue = int(dictionary[a])
+                if yAxis[hour]>0:
+                    yAxis[hour] = yAxis[hour]+delayValue
+                else:
+                    yAxis[hour] = delayValue
+            except:
+                print('Skipping data point due to parsing error')
     print("xAxis:"+str(xAxis))
     print("yAxis:"+str(yAxis))
-    plotChart(xAxis,yAxis)
+    
+    return xAxis, yAxis
+
+
+def processByDayOfWeek(dictionary):
+    days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday','Saturday', 'Sunday']
+    xAxis = list(range(0, 7))
+    yAxis = [0]*7
+    day = ''
+    for a in dictionary:
+        # print(a)
+        if len(a) == 1:
+            try:
+                day = days.index(a[0])
+                # print(day)
+                delayValue = int(dictionary[a])
+                if yAxis[day]>0:
+                    yAxis[day] = yAxis[day]+delayValue
+                else:
+                    yAxis[day] = delayValue
+            except:
+                print('Skipping data point due to parsing error')
+    # print("xAxis:"+str(xAxis))
+    # print("yAxis:"+str(yAxis))
+    return xAxis, yAxis
+
+def prettyPrinPatterns(pattern):
+    for a in pattern:
+        print(str(a)+':'+str(pattern[a]))
     return None
 
-sql_query = "SELECT T.Time, T.report_date, T.Incident FROM delays_merged as T WHERE T.month='Jan'"
+sql_query = "SELECT T.report_date, T.Incident FROM delays_binned as T WHERE T.month='Sept' AND T.year = 2014"
 db_connection = "mysql+pymysql://root@localhost/bus_delays"
 
 conn = create_engine(db_connection)
 df = pd.read_sql(sql_query, conn)
-df = df.replace(to_replace='None', value="").dropna()
-direction = df.values
-direction = processTimeDeltaObjs(direction)
-patterns = pyfpgrowth.find_frequent_patterns(direction, 2)
-processByMonth(patterns)
+patterns = pyfpgrowth.find_frequent_patterns(processTimeDeltaObjs(df.values), 5)
 
+df1 = pd.read_sql("SELECT T.report_date, T.Incident FROM delays_binned as T WHERE T.year!=2017 AND T.year!=2018", conn)
+
+patterns1 = pyfpgrowth.find_frequent_patterns(processTimeDeltaObjs(df1.values), 5)
+
+df2 = pd.read_sql("SELECT T.report_date, T.Incident FROM delays_binned as T WHERE T.year = 2017", conn)
+patterns2 = pyfpgrowth.find_frequent_patterns(processTimeDeltaObjs(df2.values), 5)
+
+xAxis, yAxis = processByMonth(patterns)
+xAxis1, yAxis1 = processByMonth(patterns1)
+
+prettyPrinPatterns(patterns1)
+print('----------')
+prettyPrinPatterns(patterns2)
+
+yAxis1 = [float(i)/3 for i in yAxis1]
+
+xAxis2, yAxis2 = processByMonth(patterns2)
+
+print("xAxis1 Averaged:"+str(xAxis1))
+averagedInt = [int(i) for i in yAxis1]
+print("yAxis1 Averaged:"+str(averagedInt))
+print('----------')
+print("xAxis2:"+str(xAxis2))
+print("yAxis2:"+str(yAxis2))
+# xAxis, yAxis = processByDay(patterns)
+# xAxis1, yAxis1 = processByDay(patterns1)
+
+xAxisArray = [xAxis1, xAxis2]
+yAxisArray = [yAxis1, yAxis2]
+yearAxis = [1, 12, 0, 1500]
+# monthAxis = [1, 30, 0, 100]
+# hourAxis = [0, 24, 0, 200]
+# dayAxis = [0, 7, 0, 100]
+plotChart(xAxisArray,yAxisArray, yearAxis)
 
 
 #Timer functionalities
