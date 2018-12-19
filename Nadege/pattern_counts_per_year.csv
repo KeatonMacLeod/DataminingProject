@@ -1,0 +1,31 @@
+,2014,2015,2016,2017,,2014^2015,2014^2015^2016,2015^2016^2017,2014^2015^2016^2017
+Maximal Patterns,,,,,,,,,
+"(Route, Direction, Time of day, Delay severity)",128,87,97,85,,69,52,42,37
+"(Stop name, Direction, Time of day, Delay severity)",74,58,61,47,,48,40,27,24
+"(Route, Incident, Time of day, Delay severity)",95,64,69,63,,46,28,23,21
+"(Day of week, Time of day, Delay severity)",84,85,88,91,,83,83,85,83
+"(Month, Incident, Delay severity)",138,130,132,134,,128,125,125,124
+,,,,,,,,,
+"Direction, Time of day, Delay severity",64,62,62,67,,60,59,58,58
+"Route, Time of Day, Delay Severity",200,160,170,152,,142,118,101,97
+"Route, Direction, Delay severity",172,148,159,136,,133,111,106,98
+"Stop name, Time of day, delay severity",106,85,88,81,,73,63,59,56
+"Stop name, Direction, delay severity",105,80,92,81,,39,62,52,49
+"(Incident, Time of day, Delay severity)",75,71,74,74,,68,68,69,67
+"(Route, Incident, Delay severity)",160,134,147,120,,114,92,83,77
+"Day of week, Delay severity",35,35,35,35,,35,35,35,35
+"Month, Delay Severity",52,52,54,53,,47,47,48,45
+"Incident, Delay Severity",25,24,25,25,,24,24,24,24
+"Route, Delay Severity",174,148,161,149,,141,134,125,123
+"Stop name, Delay severity",109,86,94,88,,79,73,67,63
+"Time of day, Delay severity",20,20,20,20,,20,20,20,20
+,,,,,,,,,
+total maximal patterns,519,424,447,420,,374,328,302,289
+,,,,,,,,,
+,,,,,,,,,
+minsup = 50,,,,,,,,,
+number of patterns,,,,,,,,,
+,,,,,,,,,
+numbers staying the same means pattern is stable through years,,,,,,,,,
+numbers decreasing means changes/differences in patterns,,,,,, ,,,
+if the 3-year intersect without 2014 is significantly higher than the 4 -year intersect then maybe older 2014 patterns are no longer relevant to more recent patterns,,,,,,,,,
