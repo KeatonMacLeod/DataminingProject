@@ -72,7 +72,7 @@ def do_merge(table1, table2):
     table1 = table1.merge(table2, left_index=True, right_on='delay_id', how='inner')
 
 def connect():
-    db_connection = "mysql+pymysql://root:root@localhost/bus_delays"
+    db_connection = "mysql+pymysql://root@localhost/bus_delays"
     conn = create_engine(db_connection)
     return conn
 

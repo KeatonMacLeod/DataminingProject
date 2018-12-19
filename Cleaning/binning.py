@@ -16,7 +16,7 @@ import sys
 #     60+ minutes crippling
 
 
-db_connection = "mysql+pymysql://root:root@localhost/Bus_Delays"
+db_connection = "mysql+pymysql://root@localhost/Bus_Delays"
 
 delays = pd.read_sql('SELECT * from delays_with_all_locations', db_connection)
 
