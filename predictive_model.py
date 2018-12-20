@@ -5,8 +5,8 @@ import pyfpgrowth
 def main():
 
     # Intialize the database connection and the list of years for which data is available
-    db_connection = "mysql+pymysql://root@localhost/data_mining_bus_delays"
-    toronto_bus_data_years = ["2014", "2015", "2016", "2017", "2018"]
+    db_connection = "mysql+pymysql://root@localhost/BusDelays"
+    toronto_bus_data_years = ["2014", "2015", "2016", "2017"]
 
     previous_years_frequent_patterns = {}
     frequent_pattern_min_sup = 25
@@ -23,13 +23,13 @@ def main():
         df_year['report_date'] = df_year['report_date'].apply(str)
 
         # Remove "uninteresting" columns from potential "interesting" datasets
-        df_year_filtered = df_year.drop(columns=['index', 'delay_id', 'year', 'report_date', 'Direction', 'Route'])
+        df_year_filtered = df_year.drop(columns=['index', 'delay_id', 'year', 'report_date', 'Direction', 'month'])
         df_year_frequent_patterns = pyfpgrowth.find_frequent_patterns(df_year_filtered.values, frequent_pattern_min_sup)
         previous_years_frequent_patterns[year] = df_year_frequent_patterns
 
     # Create the "future year's" patterns and remove the "future year's" patterns
     # from the previous_year_list_frequent_pattern
-    future_year = "2018"
+    future_year = "2017"
     future_year_frequent_patterns = {future_year: previous_years_frequent_patterns[future_year]}
     del previous_years_frequent_patterns[future_year]
 
@@ -42,7 +42,7 @@ def main():
 # TODO: This function (or another function) should also look for interesting outlier patterns in ANY year
 def find_similarities_and_differences(previous_years_frequent_patterns, future_year_frequent_patterns):
 
-    frequent_pattern_min_length = 5
+    frequent_pattern_min_length = 4
 
     for fut_year, fut_frequent_patterns in future_year_frequent_patterns.items():
         for fut_pattern, fut_count in fut_frequent_patterns.items():
@@ -59,6 +59,7 @@ def find_similarities_and_differences(previous_years_frequent_patterns, future_y
                         predicted_patterns_count.append(prev_count)
                         predicted_patterns_year.append(prev_year)
 
+            # if predicted_patterns and len(predicted_patterns_year) > 1
             if predicted_patterns:
                 print("Future Year {} - {}:{} predicted by:".format(fut_year, fut_pattern, fut_count))
                 for i in range(len(predicted_patterns)):
