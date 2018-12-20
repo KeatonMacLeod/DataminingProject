@@ -1,0 +1,112 @@
+\documentclass{article}
+\begin{document}
+\begin{table}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+Patterns&2014&2015&2016&2017 \\ [0.5ex]
+\hline
+\hline
+1. (Route, Direction, Time of day, Delay severity)&128&87&97&85 \\
+\hline
+2. (Stop name, Direction, Time of day, Delay severity)&74&58&61&47 \\
+\hline
+3. (Route, Incident, Time of day, Delay severity)&95&64&69&63 \\
+\hline
+4. (Day of week, Time of day, Delay severity)&84&85&88&91 \\
+\hline
+5. (Month, Incident, Delay severity)&138&130&132&134 \\
+\hline
+6. Direction, Time of day, Delay severity&64&62&62&67 \\
+\hline
+7. Route, Time of Day, Delay Severity&200&160&170&152 \\
+\hline
+8. Route, Direction, Delay severity&172&148&159&136 \\
+\hline
+9. Stop name, Time of day, delay severity&106&85&88&81 \\
+\hline
+10. Stop name, Direction, delay severity&105&80&92&81 \\
+\hline
+11. (Incident, Time of day, Delay severity)&75&71&74&74 \\
+\hline
+12. (Route, Incident, Delay severity)&160&134&147&120 \\
+\hline
+13. Day of week, Delay severity&35&35&35&35 \\
+\hline
+14. Month, Delay Severity&52&52&54&53 \\
+\hline
+15. Incident, Delay Severity&25&24&25&25 \\
+\hline
+16. Route, Delay Severity&174&148&161&149 \\
+\hline
+17. Stop name, Delay severity&109&86&94&88 \\
+\hline
+18. Time of day, Delay severity&20&20&20&20 \\ [0.5ex] 
+\hline
+\hline
+Total patterns&1816&1529&1628&1501 \\
+\hline
+\end{tabular}
+\end{table}
+
+\newpage
+
+
+\begin{table}
+\centering
+\hspace*{-1cm}\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+Patterns&2014-2015&2014-2016&2014-2017&2015-2017&2016-2017 \\ [0.5ex]
+\hline
+\hline
+1. (Route, Direction, Time of day, Delay severity)&69&52&37&42&63 \\
+\hline
+2. (Stop name, Direction, Time of day, Delay severity)&48&40&24&27&37 \\
+\hline
+3. (Route, Incident, Time of day, Delay severity)&46&28&21&23&45 \\
+\hline
+4. (Day of week, Time of day, Delay severity)&83&83&83&85&87 \\
+\hline
+5. (Month, Incident, Delay severity)&128&125&124&125&127 \\
+\hline
+6. Direction, Time of day, Delay severity&60&59&58&58&60 \\
+\hline
+7. Route, Time of Day, Delay Severity&142&118&97&101&128 \\
+\hline
+8. Route, Direction, Delay severity&133&111&98&106&125 \\
+\hline
+9. Stop name, Time of day, delay severity&73&63&56&59&70 \\
+\hline
+10. Stop name, Direction, delay severity&39&62&49&52&66 \\
+\hline
+11. (Incident, Time of day, Delay severity)&68&68&67&69&70 \\
+\hline
+12. (Route, Incident, Delay severity)&114&92&77&83&104 \\
+\hline
+13. Day of week, Delay severity&35&35&35&35&35 \\
+\hline
+14. Month, Delay Severity&47&47&45&48&51 \\
+\hline
+15. Incident, Delay Severity&24&24&24&24&24 \\
+\hline
+16. Route, Delay Severity&141&134&123&125&138 \\
+\hline
+17. Stop name, Delay severity&79&73&63&67&76 \\
+\hline
+18. Time of day, Delay severity&20&20&20&20&20 \\ [0.5ex]
+\hline
+\hline
+Total patterns&1379&1234&1101&1149&1326 \\
+\hline
+\end{tabular}\hspace*{-1cm}
+\end{table}
+
+
+%&&&&&&&&&&
+%&&&&&&&&&&
+%minsup = 50&&&&&&&&&&
+%number of patterns&&&&&&&&&&
+%&&&&&&&&&&
+%numbers staying the same means pattern is stable through years&&&&&&&&&&
+%numbers decreasing means changes/differences in patterns&&&&&& &&&&
+%if the 3-year intersect without 2014 is significantly higher than the 4 -year intersect then maybe older 2014 patterns are no longer relevant to more recent patterns&&&&&&&&&&
+\end{document}
