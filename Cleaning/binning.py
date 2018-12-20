@@ -16,9 +16,9 @@ import sys
 #     60+ minutes crippling
 
 
-db_connection = "mysql+pymysql://root@localhost/Bus_Delays"
+db_connection = "mysql+pymysql://root@localhost/BusDelays"
 
-delays = pd.read_sql('SELECT * from delays_with_all_locations', db_connection)
+delays = pd.read_sql('SELECT * from delays', db_connection)
 
 df = delays.drop(columns=['Time', 'Minute', 'Vehicle', 'min_gap'])
 
@@ -34,4 +34,4 @@ df = df.drop(columns=['min_delay'])
 # clean up June/Jun
 df = df.replace(to_replace=r'June', value='Jun', regex=True)
 
-df.to_sql('delays_binned_with_all_locations', db_connection)
+df.to_sql('delays_binned', db_connection)

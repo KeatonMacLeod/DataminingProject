@@ -21,7 +21,7 @@ def remove_special_characters(s):
 
 
 def find_most_similar_stops():
-    engine = create_engine('mysql://root:casperto360flip@localhost/data_mining_bus_delays?charset=utf8')
+    engine = create_engine('mysql+pymysql://root@localhost/BusDelays?charset=utf8')
 
     engine_result = engine.execute("SELECT Id, Location FROM location")
     result = engine_result.fetchall()
