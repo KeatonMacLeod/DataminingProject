@@ -7,6 +7,7 @@ TODO Do we need to import location and stop tables separately
 Note: all scripts assume you are running them from the directory they are located in
 (name of schema might need to be changed in some cleaning scripts to match that when establishing the  database connection)
 
+//TODO excel bus data to db script?
 $ python3 directionTableCleaning.py
 $ python3 InsertTTCStops.py *****TODO did we need to insert stops first? how?
 $ python3 LocationNameConsistencyDifflib.py
@@ -31,3 +32,7 @@ $ python3 Decision_Tree/regression_analysis.py
 
 Information about the meaning of columns:
 TTC_Bus_Delay_Data_Metadata.xlsx
+
+Link to datasets:
+https://www.toronto.ca/city-government/data-research-maps/open-data/open-data-catalogue/#bb967f18-8d90-defc-2946-db3543648bd6
+(Accessed in October)
