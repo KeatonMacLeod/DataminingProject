@@ -1,19 +1,7 @@
 # COMP 4710 Group Project
 # Fall 2018
 
-Our cleaned data can be obtained by running BusDelayDatabase.sql in MySQL then running our cleaning scripts.
-TODO Do we need to import location and stop tables separately
-
-Note: all scripts assume you are running them from the directory they are located in
-(name of schema might need to be changed in some cleaning scripts to match that when establishing the  database connection)
-
-//TODO excel bus data to db script?
-$ python3 directionTableCleaning.py
-$ python3 InsertTTCStops.py *****TODO did we need to insert stops first? how?
-$ python3 LocationNameConsistencyDifflib.py
-$ python3 Merge_Tables.py
-(delays merged.csv corresponds to this intermediate state)
-$ python3 binning.py
+Our cleaned data is in delays_binned.csv
 
 Count Tables:
 $ python3 Counts_Tables/pattern_counts_per_year.py
